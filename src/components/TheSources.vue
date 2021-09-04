@@ -16,14 +16,40 @@
             AddSource,
             SourceWrapper
         }, 
+        provide() {
+            return {
+                sources: this.storedSources,
+                addSource: this.addNewSource
+            }
+        },
         data() {
             return {
-                selectedTab: 'source-wrapper'
+                selectedTab: 'source-wrapper',
+                storedSources: [
+                    {
+                        id: 'official-guide',
+                        title: 'Official guide',
+                        description: 'Official Vue.js documentation',
+                        link: 'https://vuejs.org'
+                    },
+                    {
+                        id: 'google',
+                        title: 'Google',
+                        description: 'Learn to google...',
+                        link: 'https://google.com'
+                    }
+                ]
             }
         },
         methods: {
             setSelectedTab(tab) {
                 this.selectedTab = tab;
+            },
+            addNewSource(title, description, link) {
+                const id = title.split(' ').join('-').toLowerCase();
+                this.storedSources.push({
+                    id, title, description, link
+                });
             }
         }, 
         computed: {

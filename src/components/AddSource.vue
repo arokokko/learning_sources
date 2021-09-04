@@ -1,6 +1,6 @@
 <template>
   <base-card>
-    <form action="" @submit.prevent>
+    <form  @submit.prevent="addSource(title, descr, link)">
         <div class="form-control">
             <label for="title">Title</label>
             <input type="text" id="title" name="title" v-model="title"/>
@@ -13,7 +13,7 @@
             <label for="link">Link</label>
             <input type="url" id="link" name="link" v-model="link"/>
         </div>
-        <the-button @click="addSource(title, descr, link)">Add source</the-button>
+        <the-button type="submit">Add source</the-button>
     </form>
   </base-card>
 </template>
