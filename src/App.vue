@@ -1,5 +1,5 @@
 <template>
-    
+    <the-header :title="mainTitle"></the-header>
     <source-wrapper :sources="storedSources">
     </source-wrapper>
     
@@ -7,12 +7,15 @@
 
 <script>
 import SourceWrapper from './components/SourceWrapper.vue';
+import TheHeader from './components/layout/TheHeader.vue';
 export default {
     components: {
-        SourceWrapper
+        SourceWrapper,
+        TheHeader
     },
     data() {
         return {
+            mainTitle: 'RememberMe',
             storedSources: [
                 {
                     id: 'official-guide',

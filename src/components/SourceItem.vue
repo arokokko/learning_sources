@@ -3,7 +3,7 @@
         <base-card>
             <header>
                 <h3>{{ item.title }}</h3>
-                <button>Delete</button>
+                <the-button :mode="'flat'" :type="'button'">Delete</the-button>
             </header>
             <p>{{ item.description }}</p>
             <nav>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
     
     export default {
         props: {
