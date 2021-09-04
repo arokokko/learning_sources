@@ -1,17 +1,22 @@
 <template>
     <the-header :title="mainTitle"></the-header>
-    <source-wrapper :sources="storedSources">
-    </source-wrapper>
+    <the-sources></the-sources>
     
 </template>
 
 <script>
-import SourceWrapper from './components/SourceWrapper.vue';
 import TheHeader from './components/layout/TheHeader.vue';
+import TheSources from './components/TheSources.vue';
 export default {
     components: {
-        SourceWrapper,
-        TheHeader
+        TheHeader,
+        TheSources
+    },
+    provide() {
+        return {
+            sources: this.storedSources,
+            addSource: this.addNewSource
+        }
     },
     data() {
         return {
@@ -30,6 +35,14 @@ export default {
                     link: 'https://google.com'
                 }
             ]
+        }
+    },
+    methods: {
+        addNewSource(title, description, link) {
+            const id = title.split(' ').join('-').toLowerCase();
+            this.storedSources.push({
+                id, title, description, link
+            });
         }
     }
 }

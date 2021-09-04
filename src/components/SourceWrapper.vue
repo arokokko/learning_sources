@@ -7,12 +7,13 @@
 <script>
     import SourceItem from './SourceItem.vue';
     export default {
+        inject: ['sources'],
         components: {
             SourceItem
         },
-        props: {
-            sources: Array
-        }
+        // props: {
+        //     sources: Array
+        // }
         
     }
 </script>
