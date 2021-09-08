@@ -1,35 +1,50 @@
 <template>
-  <base-card>
-    <form  @submit.prevent="emitNewSource($event)">
-        <div class="form-control">
-            <label for="title">Title</label>
-            <input type="text" id="title" name="title" v-model="title"/>
-        </div>
-        <div class="form-control">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" rows="3" v-model="descr"></textarea>
-        </div>
-        <div class="form-control">
-            <label for="link">Link</label>
-            <input type="url" id="link" name="link" v-model="link"/>
-        </div>
-        <the-button type="submit">Add source</the-button>
-    </form>
-  </base-card>
+    <base-dialog v-if="isInputInvalid"
+                title="Input is invalid"
+                @close-dialog="confirmError"
+    >
+        <template #default>
+            <p>At least one input value is invalid</p>
+            <p>Please, check the inputs </p>
+        </template>
+        <template #actions>
+            <!-- <the-button @click="confirmError">Okay</the-button> -->
+        </template>
+    </base-dialog>
+    <base-card>
+        <form  @submit.prevent="emitNewSource()">
+            <div class="form-control">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" v-model="title"/>
+            </div>
+            <div class="form-control">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="3" v-model="descr"></textarea>
+            </div>
+            <div class="form-control">
+                <label for="link">Link</label>
+                <input type="url" id="link" name="link" v-model="link"/>
+            </div>
+            <the-button type="submit">Add source</the-button>
+        </form>
+    </base-card>
 </template>
 
 <script>
     export default {
+        emits: ['emit-source'],
         data() {
             return {
+                isInputInvalid: false,
                 title: '',
                 descr: '',
                 link: ''
             }
         },
         methods: {
-            emitNewSource(e) {
+            emitNewSource() {
                 if(this.title === '' || this.descr === '' || this.link === '') {
+                    this.isInputInvalid = true;
                     return;
                 }
                 const id = this.title.split(' ').join('-').toLowerCase();
@@ -39,7 +54,12 @@
                     description: this.descr,
                     link: this.link
                 });
-                e.target.reset();
+                this.title = '';
+                this.descr = '';
+                this.link = ''
+            },
+            confirmError() {
+                this.isInputInvalid = false;
             }
         }
     };
