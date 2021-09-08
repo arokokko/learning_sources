@@ -1,6 +1,6 @@
 <template>
   <base-card>
-    <form  @submit.prevent="addSource(title, descr, link)">
+    <form  @submit.prevent="emitNewSource($event)">
         <div class="form-control">
             <label for="title">Title</label>
             <input type="text" id="title" name="title" v-model="title"/>
@@ -20,12 +20,26 @@
 
 <script>
     export default {
-        inject: ['addSource'],
         data() {
             return {
                 title: '',
                 descr: '',
                 link: ''
+            }
+        },
+        methods: {
+            emitNewSource(e) {
+                if(this.title === '' || this.descr === '' || this.link === '') {
+                    return;
+                }
+                const id = this.title.split(' ').join('-').toLowerCase();
+                this.$emit('emit-source', {
+                    id: id,
+                    title: this.title,
+                    description: this.descr,
+                    link: this.link
+                });
+                e.target.reset();
             }
         }
     };

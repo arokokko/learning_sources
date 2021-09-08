@@ -4,7 +4,7 @@
         <the-button @click="setSelectedTab('source-wrapper')" :mode="sourceBtnMode">The sources</the-button>
     </base-card>
     <keep-alive>
-        <component :is="selectedTab"></component>
+        <component :is="selectedTab" @emit-source="changeStoredSource"></component>
     </keep-alive>
 </template>
 
@@ -18,8 +18,7 @@
         }, 
         provide() {
             return {
-                sources: this.storedSources,
-                addSource: this.addNewSource
+                sources: this.storedSources
             }
         },
         data() {
@@ -45,11 +44,9 @@
             setSelectedTab(tab) {
                 this.selectedTab = tab;
             },
-            addNewSource(title, description, link) {
-                const id = title.split(' ').join('-').toLowerCase();
-                this.storedSources.push({
-                    id, title, description, link
-                });
+            changeStoredSource(source) {
+                this.storedSources.push(source);
+                this.selectedTab = 'source-wrapper';
             }
         }, 
         computed: {
