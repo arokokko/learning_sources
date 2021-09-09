@@ -4,7 +4,7 @@
         <the-button @click="setSelectedTab('source-wrapper')" :mode="sourceBtnMode">The sources</the-button>
     </base-card>
     <keep-alive>
-        <component :is="selectedTab" @emit-source="changeStoredSource"></component>
+        <component :is="selectedTab" @emit-source="changeStoredSource" ></component>
     </keep-alive>
 </template>
 
@@ -18,7 +18,8 @@
         }, 
         provide() {
             return {
-                sources: this.storedSources
+                sources: this.storedSources,
+                deleteItem: this.removeSource
             }
         },
         data() {
@@ -47,6 +48,10 @@
             changeStoredSource(source) {
                 this.storedSources.push(source);
                 this.selectedTab = 'source-wrapper';
+            },
+            removeSource(id) {
+                let index = this.storedSources.findIndex(item => item.id === id);
+                this.storedSources.splice(index, 1);
             }
         }, 
         computed: {

@@ -4,8 +4,8 @@
                 @close-dialog="confirmError"
     >
         <template #default>
-            <p>At least one input value is invalid</p>
-            <p>Please, check the inputs </p>
+            <p>Unfortunately, at least one input value is invalid</p>
+            <p>Please, check all inputs and make sure that you input correct data</p>
         </template>
         <template #actions>
             <!-- <the-button @click="confirmError">Okay</the-button> -->

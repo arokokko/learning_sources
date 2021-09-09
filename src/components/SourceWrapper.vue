@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <source-item v-for="source in sources" :key="source.id" :item="source"></source-item>
+        <source-item v-for="(source) in sources" :key="source.id" :item="source" ></source-item>
     </ul>
 </template>
 
@@ -11,9 +11,7 @@
         components: {
             SourceItem
         },
-        // props: {
-        //     sources: Array
-        // }
+        
         
     }
 </script>

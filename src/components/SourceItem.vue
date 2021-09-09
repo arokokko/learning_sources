@@ -3,7 +3,7 @@
         <base-card>
             <header>
                 <h3>{{ item.title }}</h3>
-                <the-button :mode="'flat'" :type="'button'">Delete</the-button>
+                <the-button :mode="'flat'" :type="'button'" @click="deleteItem(item.id)">Delete</the-button>
             </header>
             <p>{{ item.description }}</p>
             <nav>
@@ -17,11 +17,12 @@
 <script>
     
     export default {
+        inject: ['deleteItem'],
         props: {
         
             item: Object
 
-        }
+        },
     }
 </script>
 
